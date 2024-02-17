@@ -1,8 +1,15 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
 import { GoTasklist } from "react-icons/go";
 
 const NavBar = () => {
+  const currentPath = usePathname();
+
+  console.log(currentPath);
+
   const links = [
     { label: "Dashboard", href: "/" },
     { label: "Issues", href: "/issues" },
@@ -17,7 +24,12 @@ const NavBar = () => {
         {links.map((item) => (
           <li key={item.label}>
             <Link
-              className="text-zinc-500 hover:text-zinc-800 transition-colors"
+              className={`${
+                item.href === currentPath
+                  ? "text-zinc-900 font-medium"
+                  : "text-zinc-500"
+              } hover:text-zinc-800 transition-colors`}
+              // className="text-zinc-500 hover:text-zinc-800 transition-colors"
               href={item.href}
             >
               {item.label}
