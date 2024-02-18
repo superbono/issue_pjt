@@ -12,6 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { createIssueSchema } from "@/app/utils/validationSchemas";
 import ErrorMessage from "@/app/components/ErrorMessage";
+import Spinner from "@/app/components/Spinner";
 
 export const metadata: Metadata = {
   title: "New Page",
@@ -40,6 +41,7 @@ const IssuesNewPage = () => {
     resolver: zodResolver(createIssueSchema),
   });
   const [error, setError] = useState("");
+  const [issueSubmited, setIssueSubmited] = useState(false);
   const router = useRouter();
 
   const handleResetClick = (e: { preventDefault: () => void }) => {
@@ -60,9 +62,11 @@ const IssuesNewPage = () => {
         className="max-w-xl space-y-2"
         onSubmit={handleSubmit(async (data) => {
           try {
+            setIssueSubmited(true);
             await axios.post("/api/issues", data);
             router.push("/issues");
           } catch (error) {
+            setIssueSubmited(false);
             setError("예상치 못한 오류가 발생했습니다.");
             resetField("title");
             resetField("description");
@@ -88,7 +92,9 @@ const IssuesNewPage = () => {
           >
             Cancle
           </Button>
-          <Button>Create New Issue</Button>
+          <Button disabled={issueSubmited}>
+            Create New Issue {issueSubmited && <Spinner />}
+          </Button>
         </div>
       </form>
     </div>
