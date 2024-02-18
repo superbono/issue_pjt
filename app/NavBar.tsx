@@ -8,8 +8,6 @@ import { GoTasklist } from "react-icons/go";
 const NavBar = () => {
   const currentPath = usePathname();
 
-  console.log(currentPath);
-
   const links = [
     { label: "Dashboard", href: "/" },
     { label: "Issues", href: "/issues" },
