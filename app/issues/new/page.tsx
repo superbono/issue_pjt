@@ -50,6 +50,19 @@ const IssuesNewPage = () => {
     resetField("description");
   };
 
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      setIssueSubmited(true);
+      await axios.post("/api/issues", data);
+      router.push("/issues");
+    } catch (error) {
+      setIssueSubmited(false);
+      setError("예상치 못한 오류가 발생했습니다.");
+      resetField("title");
+      resetField("description");
+    }
+  });
+
   return (
     <div className="max-w-xl">
       {error && (
@@ -58,21 +71,7 @@ const IssuesNewPage = () => {
         </Callout.Root>
       )}
 
-      <form
-        className="max-w-xl space-y-2"
-        onSubmit={handleSubmit(async (data) => {
-          try {
-            setIssueSubmited(true);
-            await axios.post("/api/issues", data);
-            router.push("/issues");
-          } catch (error) {
-            setIssueSubmited(false);
-            setError("예상치 못한 오류가 발생했습니다.");
-            resetField("title");
-            resetField("description");
-          }
-        })}
-      >
+      <form className="max-w-xl space-y-2" onSubmit={onSubmit}>
         <TextField.Root className="mb-3">
           <TextField.Input placeholder="Title" {...register("title")} />
         </TextField.Root>
