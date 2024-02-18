@@ -1,3 +1,4 @@
+import { Button } from "@radix-ui/themes";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -9,6 +10,7 @@ export default function Issues() {
   return (
     <div>
       <p>Issues</p>
+      <Button>Edit profile</Button>
     </div>
   );
 }
