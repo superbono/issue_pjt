@@ -1,7 +1,6 @@
 import { Button } from "@radix-ui/themes";
 import { Metadata } from "next";
 import Link from "next/link";
-
 export const metadata: Metadata = {
   title: "Issues Page",
   description: "이슈 페이지입니다",
