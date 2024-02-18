@@ -9,8 +9,9 @@ import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createIssueSchema } from "@/utils/validation/validationSchemas";
 import { z } from "zod";
+import { createIssueSchema } from "@/app/utils/validationSchemas";
+import ErrorMessage from "@/app/components/ErrorMessage";
 
 export const metadata: Metadata = {
   title: "New Page",
@@ -71,11 +72,7 @@ const IssuesNewPage = () => {
         <TextField.Root className="mb-3">
           <TextField.Input placeholder="Title" {...register("title")} />
         </TextField.Root>
-        {errors.title && (
-          <Text color="red" as="p">
-            {errors.title.message}
-          </Text>
-        )}
+        <ErrorMessage>{errors.title?.message}</ErrorMessage>
         <Controller
           name="description"
           control={control}
@@ -83,11 +80,7 @@ const IssuesNewPage = () => {
             <SimpleMDE placeholder="Description" {...field} />
           )}
         />
-        {errors.description && (
-          <Text color="red" as="p">
-            {errors.description.message}
-          </Text>
-        )}
+        <ErrorMessage>{errors.description?.message}</ErrorMessage>
         <div className="flex justify-end space-x-2">
           <Button
             onClick={handleResetClick}
