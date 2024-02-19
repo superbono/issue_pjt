@@ -42,6 +42,7 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
 
   const handleBackMove = () => {
     router.push("/issues");
+    router.refresh();
   };
 
   const onSubmit = handleSubmit(async (data) => {

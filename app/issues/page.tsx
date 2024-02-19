@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: "이슈 페이지입니다",
 };
 
-export default async function IssuesPage() {
+const IssuesPage = async () => {
   const issues = await prisma.issue.findMany();
 
   return (
@@ -52,4 +52,9 @@ export default async function IssuesPage() {
       </Table.Root>
     </div>
   );
-}
+};
+
+export const dynamic = "force-dynamic";
+// export const revalidate = 60;
+
+export default IssuesPage;
