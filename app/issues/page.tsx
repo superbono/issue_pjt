@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default async function IssuesPage() {
   const issues = await prisma.issue.findMany();
 
-  await delay(300);
+  await delay(400);
 
   return (
     <div>
