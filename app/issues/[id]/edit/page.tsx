@@ -2,6 +2,12 @@ import React from "react";
 import IssueForm from "../../_components/IssueForm";
 import prisma from "@/prisma/client";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Issue Edit Page",
+  description: "이슈 수정 페이지입니다",
+};
 
 interface Props {
   params: { id: string };

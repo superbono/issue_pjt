@@ -40,6 +40,10 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
     resetField("description");
   };
 
+  const handleBackMove = () => {
+    router.push("/issues");
+  };
+
   const onSubmit = handleSubmit(async (data) => {
     try {
       setIssueSubmited(true);
@@ -83,12 +87,18 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
           )}
         />
         <ErrorMessage>{errors.description?.message}</ErrorMessage>
-        <div className="flex justify-end space-x-2">
-          <Button
+        <div className="space-x-2">
+          {/* <Button
             onClick={handleResetClick}
             style={{ backgroundColor: "orange", cursor: "pointer" }}
           >
             Cancle
+          </Button> */}
+          <Button
+            onClick={handleBackMove}
+            style={{ backgroundColor: "orange", cursor: "pointer" }}
+          >
+            Back
           </Button>
           <Button disabled={issueSubmited} style={{ cursor: "pointer" }}>
             {!issue ? "Create New Issue" : "Update Issue"}

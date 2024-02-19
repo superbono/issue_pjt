@@ -8,6 +8,12 @@ import React from "react";
 import ReactMarkdown from "react-markdown";
 import EditIssueButton from "./EditIssueButton";
 import IssueDetail from "./IssueDetail";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Issue Detail Page",
+  description: "이슈 디테일 페이지입니다",
+};
 
 interface Props {
   params: { id: string };
