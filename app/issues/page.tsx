@@ -4,6 +4,7 @@ import { Metadata } from "next";
 import IssueStatusBadge from "../components/IssueStatusBadge";
 import delay from "delay";
 import IssueActions from "./IssueActions";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Issues Page",
@@ -34,10 +35,12 @@ export default async function IssuesPage() {
           {issues.map((issue) => (
             <Table.Row key={issue.id}>
               <Table.Cell>
-                {issue.title}
-                <div className="block md:hidden">
-                  <IssueStatusBadge status={issue.status} />
-                </div>
+                <Link href={`/issues/${issue.id}`}>
+                  {issue.title}
+                  <div className="block md:hidden">
+                    <IssueStatusBadge status={issue.status} />
+                  </div>
+                </Link>
               </Table.Cell>
               <Table.Cell className="hidden md:table-cell">
                 <IssueStatusBadge status={issue.status} />
