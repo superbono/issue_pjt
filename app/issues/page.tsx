@@ -1,10 +1,8 @@
 import prisma from "@/prisma/client";
 import { Table } from "@radix-ui/themes";
 import { Metadata } from "next";
-import IssueStatusBadge from "../components/IssueStatusBadge";
-import delay from "delay";
 import IssueActions from "./IssueActions";
-import Link from "../components/Link";
+import { Link, IssueStatusBadge } from "../components";
 
 export const metadata: Metadata = {
   title: "Issues Page",
@@ -13,8 +11,6 @@ export const metadata: Metadata = {
 
 export default async function IssuesPage() {
   const issues = await prisma.issue.findMany();
-
-  await delay(400);
 
   return (
     <div>

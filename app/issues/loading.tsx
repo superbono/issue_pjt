@@ -1,8 +1,9 @@
 import React from "react";
-import { Button, Table } from "@radix-ui/themes";
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
+import { Table } from "@radix-ui/themes";
 import IssueActions from "./IssueActions";
+import { Skeleton } from "@/app/components/Skeleton";
+// import Skeleton from "react-loading-skeleton";
+// import "react-loading-skeleton/dist/skeleton.css";
 
 const LoadingIssue = () => {
   // 임시
