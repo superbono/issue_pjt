@@ -42,8 +42,7 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
   };
 
   const handleBackMove = () => {
-    router.push("/issues");
-    router.refresh();
+    router.back();
   };
 
   const onSubmit = handleSubmit(async (data) => {
@@ -55,6 +54,7 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
         await axios.post("/api/issues", data);
       }
       router.push("/issues");
+      router.refresh();
     } catch (error) {
       setIssueSubmited(false);
       setError("예상치 못한 오류가 발생했습니다.");
@@ -96,12 +96,12 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
           >
             Cancle
           </Button> */}
-          <Button
+          {/* <Button
             onClick={handleBackMove}
             style={{ backgroundColor: "orange", cursor: "pointer" }}
           >
             Back
-          </Button>
+          </Button> */}
           <Button disabled={issueSubmited} style={{ cursor: "pointer" }}>
             {!issue ? "Create New Issue" : "Update Issue"}
             {issueSubmited && <Spinner />}

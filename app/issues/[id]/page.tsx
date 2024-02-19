@@ -9,6 +9,7 @@ import ReactMarkdown from "react-markdown";
 import EditIssueButton from "./EditIssueButton";
 import IssueDetail from "./IssueDetail";
 import { Metadata } from "next";
+import DeleteIssueButton from "./DeleteIssueButton";
 
 export const metadata: Metadata = {
   title: "Issue Detail Page",
@@ -34,12 +35,16 @@ const IssueDetailPage = async ({ params }: Props) => {
 
   return (
     <div>
-      <Grid columns={{ initial: "1", md: "2" }} gap="5">
-        <Box>
+      <Grid columns={{ initial: "1", md: "5" }} gap="5">
+        {/* <Box className="md:col-span-4"> */}
+        <Box className="lg:col-span-4">
           <IssueDetail issue={issue} />
         </Box>
-        <Box>
-          <EditIssueButton issueId={issue.id} />
+        <Box className="col-span-1">
+          <Flex direction="column" gap="2">
+            <EditIssueButton issueId={issue.id} />
+            <DeleteIssueButton issueId={issue.id} />
+          </Flex>
         </Box>
       </Grid>
     </div>

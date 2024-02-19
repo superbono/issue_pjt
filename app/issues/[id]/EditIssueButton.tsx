@@ -17,8 +17,8 @@ const EditIssueButton = ({ issueId }: Props) => {
     router.push("/issues");
   };
   return (
-    <div className="space-x-2">
-      <Button
+    <>
+      {/* <Button
         onClick={handleBackMove}
         style={{
           backgroundColor: "orange",
@@ -26,12 +26,12 @@ const EditIssueButton = ({ issueId }: Props) => {
         }}
       >
         Back
-      </Button>
+      </Button> */}
       <Button>
         <Pencil2Icon />
         <Link href={`/issues/${issueId}/edit`}>Edit Issue</Link>
       </Button>
-    </div>
+    </>
   );
 };
 
