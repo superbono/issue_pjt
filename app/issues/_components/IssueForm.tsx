@@ -12,21 +12,22 @@ import { z } from "zod";
 import { createIssueSchema } from "@/app/utils/validationSchemas";
 import ErrorMessage from "@/app/components/ErrorMessage";
 import Spinner from "@/app/components/Spinner";
+import { Issue } from "@prisma/client";
 
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
   ssr: false,
 });
 
-type IssueForm = z.infer<typeof createIssueSchema>;
+type IssueFormData = z.infer<typeof createIssueSchema>;
 
-const CreateIssueForm = () => {
+const IssueForm = ({ issue }: { issue?: Issue }) => {
   const {
     register,
     resetField,
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<IssueForm>({
+  } = useForm<IssueFormData>({
     resolver: zodResolver(createIssueSchema),
   });
   const [error, setError] = useState("");
@@ -62,11 +63,16 @@ const CreateIssueForm = () => {
 
       <form className="max-w-xl space-y-2" onSubmit={onSubmit}>
         <TextField.Root className="mb-3">
-          <TextField.Input placeholder="Title" {...register("title")} />
+          <TextField.Input
+            defaultValue={issue?.title}
+            placeholder="Title"
+            {...register("title")}
+          />
         </TextField.Root>
         <ErrorMessage>{errors.title?.message}</ErrorMessage>
         <Controller
           name="description"
+          defaultValue={issue?.description}
           control={control}
           render={({ field }) => (
             <SimpleMDE placeholder="Description" {...field} />
@@ -81,7 +87,8 @@ const CreateIssueForm = () => {
             Cancle
           </Button>
           <Button disabled={issueSubmited} style={{ cursor: "pointer" }}>
-            Create New Issue {issueSubmited && <Spinner />}
+            {!issue ? "Create New" : "Update"} Issue{" "}
+            {issueSubmited && <Spinner />}
           </Button>
         </div>
       </form>
@@ -89,4 +96,4 @@ const CreateIssueForm = () => {
   );
 };
 
-export default CreateIssueForm;
+export default IssueForm;

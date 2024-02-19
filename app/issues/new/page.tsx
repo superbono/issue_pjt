@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import "easymde/dist/easymde.min.css";
-import CreateIssueForm from "./CreateIssueForm";
+import IssueForm from "../_components/IssueForm";
+// import CreateIssueForm from "./CreateIssueForm";
 
 export const metadata: Metadata = {
   title: "New Page",
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
 const IssuesNewPage = () => {
   return (
     <div className="max-w-xl">
-      <CreateIssueForm />
+      <IssueForm />
     </div>
   );
 };
