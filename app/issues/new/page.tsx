@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import "easymde/dist/easymde.min.css";
 import IssueForm from "../_components/IssueForm";
-// import CreateIssueForm from "./CreateIssueForm";
 
 export const metadata: Metadata = {
   title: "New Page",
