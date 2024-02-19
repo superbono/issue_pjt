@@ -18,7 +18,7 @@ const DeleteIssueButton = ({ issueId }: Props) => {
   };
   return (
     <>
-      <Button color="amber">
+      <Button color="red">
         <TrashIcon />
         Delete Issue
       </Button>
