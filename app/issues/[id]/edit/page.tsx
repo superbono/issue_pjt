@@ -1,13 +1,19 @@
 import React from "react";
-import IssueForm from "../../_components/IssueForm";
 import prisma from "@/prisma/client";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
+import dynamic from "next/dynamic";
+import IssueFormSkeleton from "./loading";
 
 export const metadata: Metadata = {
   title: "Issue Edit Page",
   description: "이슈 수정 페이지입니다",
 };
+
+const IssueForm = dynamic(() => import("@/app/issues/_components/IssueForm"), {
+  ssr: false,
+  loading: () => <IssueFormSkeleton />,
+});
 
 interface Props {
   params: { id: string };
