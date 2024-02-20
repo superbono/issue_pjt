@@ -13,6 +13,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 import { GoTasklist } from "react-icons/go";
+import { Skeleton } from "./components/Skeleton";
 
 /*
  로그인(GET) -> /api/auth/signin
@@ -68,7 +69,7 @@ const NavLinks = () => {
 const AuthStatus = () => {
   const { status, data: session } = useSession();
 
-  if (status === "loading") return null;
+  if (status === "loading") return <Skeleton width="3rem" />;
   if (status === "unauthenticated")
     return <Link href="/api/auth/signin">Login</Link>;
 
