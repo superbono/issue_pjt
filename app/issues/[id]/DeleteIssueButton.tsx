@@ -6,6 +6,7 @@ import { AlertDialog, Button, Flex } from "@radix-ui/themes";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { Spinner } from "@/app/components";
 
 interface Props {
   issueId: number;
@@ -15,15 +16,18 @@ const DeleteIssueButton = ({ issueId }: Props) => {
   const [error, setError] = useState("");
   const router = useRouter();
   const [errorStatus, setErrorStatus] = useState(false);
+  const [deleteSubmited, setDeleteSubmited] = useState(false);
 
   const onDelete = async () => {
     try {
       setErrorStatus(false);
+      setDeleteSubmited(true);
       await axios.delete(`/api/issues/${issueId}`);
       router.push("/issues");
       router.refresh();
     } catch (error) {
       setErrorStatus(true);
+      setDeleteSubmited(false);
       setError("예상치 못한 오류가 발생했습니다.");
     }
   };
@@ -33,11 +37,11 @@ const DeleteIssueButton = ({ issueId }: Props) => {
       <AlertDialog.Root>
         <AlertDialog.Trigger>
           <Button
-            color="orange"
-            style={{ backgroundColor: "orange", cursor: "pointer" }}
+            disabled={deleteSubmited}
+            style={{ backgroundColor: "tomato", cursor: "pointer" }}
           >
             <TrashIcon />
-            Delete Issue
+            Delete Issue {deleteSubmited && <Spinner />}
           </Button>
         </AlertDialog.Trigger>
         <AlertDialog.Content>
