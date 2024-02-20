@@ -5,7 +5,7 @@ import React from "react";
 const IssueActions = () => {
   return (
     <div className="mb-5">
-      <Button>
+      <Button color="blue" style={{ cursor: "pointer" }}>
         <Link href="/issues/new">New Issue</Link>
       </Button>
     </div>

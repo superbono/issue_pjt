@@ -1,10 +1,20 @@
 import IssueStatusBadge from "@/app/components/IssueStatusBadge";
 import prisma from "@/prisma/client";
-import { Card, Heading, Text, Flex } from "@radix-ui/themes";
-import delay from "delay";
+import { Pencil2Icon } from "@radix-ui/react-icons";
+import { Card, Heading, Text, Flex, Grid, Button, Box } from "@radix-ui/themes";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import React from "react";
 import ReactMarkdown from "react-markdown";
+import EditIssueButton from "./EditIssueButton";
+import IssueDetail from "./IssueDetail";
+import { Metadata } from "next";
+import DeleteIssueButton from "./DeleteIssueButton";
+
+export const metadata: Metadata = {
+  title: "Issue Detail Page",
+  description: "이슈 디테일 페이지입니다",
+};
 
 interface Props {
   params: { id: string };
@@ -12,8 +22,6 @@ interface Props {
 
 const IssueDetailPage = async ({ params }: Props) => {
   const numbericId = parseInt(params.id, 10);
-
-  await delay(400);
 
   if (isNaN(numbericId) || numbericId.toString() !== params.id) {
     notFound();
@@ -27,14 +35,18 @@ const IssueDetailPage = async ({ params }: Props) => {
 
   return (
     <div>
-      <Heading>{issue.title}</Heading>
-      <Flex my="2" className="space-x-3 my-30" mt="5">
-        <IssueStatusBadge status={issue.status} />
-        <Text>{issue.createdAt.toDateString()}</Text>
-      </Flex>
-      <Card className="prose" mt="4">
-        <ReactMarkdown>{issue.description}</ReactMarkdown>
-      </Card>
+      <Grid columns={{ initial: "1", md: "5" }} gap="5">
+        {/* <Box className="md:col-span-4"> */}
+        <Box className="lg:col-span-4">
+          <IssueDetail issue={issue} />
+        </Box>
+        <Box className="col-span-1">
+          <Flex direction="column" gap="2">
+            <EditIssueButton issueId={issue.id} />
+            <DeleteIssueButton issueId={issue.id} />
+          </Flex>
+        </Box>
+      </Grid>
     </div>
   );
 };
