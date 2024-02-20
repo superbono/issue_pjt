@@ -102,7 +102,11 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
           >
             Back
           </Button> */}
-          <Button disabled={issueSubmited} style={{ cursor: "pointer" }}>
+          <Button
+            color="grass"
+            disabled={issueSubmited}
+            style={{ cursor: "pointer" }}
+          >
             {!issue ? "Create New Issue" : "Update Issue"}
             {issueSubmited && <Spinner />}
           </Button>
