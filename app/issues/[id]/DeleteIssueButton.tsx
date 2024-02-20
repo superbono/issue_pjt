@@ -51,12 +51,17 @@ const DeleteIssueButton = ({ issueId }: Props) => {
           </AlertDialog.Description>
           <Flex mt="4" gap="2">
             <AlertDialog.Action>
-              <Button onClick={onDelete} variant="soft" color="orange">
+              <Button
+                style={{ cursor: "pointer" }}
+                onClick={onDelete}
+                variant="soft"
+                color="orange"
+              >
                 확인
               </Button>
             </AlertDialog.Action>
             <AlertDialog.Cancel>
-              <Button variant="soft" color="gray">
+              <Button style={{ cursor: "pointer" }} variant="soft" color="gray">
                 취소
               </Button>
             </AlertDialog.Cancel>
@@ -70,6 +75,7 @@ const DeleteIssueButton = ({ issueId }: Props) => {
             이슈를 삭제할 수 없습니다. (오류 발생)
           </AlertDialog.Description>
           <Button
+            style={{ cursor: "pointer" }}
             onClick={() => setErrorStatus(false)}
             mt="4"
             variant="soft"
