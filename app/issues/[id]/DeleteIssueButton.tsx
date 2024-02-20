@@ -1,14 +1,20 @@
 "use client";
 
+import prisma from "@/prisma/client";
 import { TrashIcon } from "@radix-ui/react-icons";
 import { AlertDialog, Button, Flex } from "@radix-ui/themes";
-import React from "react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 
 interface Props {
   issueId: number;
 }
 
 const DeleteIssueButton = ({ issueId }: Props) => {
+  const [error, setError] = useState("");
+  const router = useRouter();
+
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
@@ -23,16 +29,28 @@ const DeleteIssueButton = ({ issueId }: Props) => {
           정말 삭제하시겠습니까?
         </AlertDialog.Description>
         <Flex mt="4" gap="2">
-          <AlertDialog.Cancel>
-            <Button variant="soft" color="gray">
-              Cancle
-            </Button>
-          </AlertDialog.Cancel>
           <AlertDialog.Action>
-            <Button variant="soft" color="orange">
-              Delete
+            <Button
+              onClick={async () => {
+                try {
+                  await axios.delete(`/api/issues/${issueId}`);
+                  router.push("/issues");
+                  router.refresh();
+                } catch (error) {
+                  setError("예상치 못한 오류가 발생했습니다.");
+                }
+              }}
+              variant="soft"
+              color="orange"
+            >
+              확인
             </Button>
           </AlertDialog.Action>
+          <AlertDialog.Cancel>
+            <Button variant="soft" color="gray">
+              취소
+            </Button>
+          </AlertDialog.Cancel>
         </Flex>
       </AlertDialog.Content>
     </AlertDialog.Root>
