@@ -32,7 +32,10 @@ const DeleteIssueButton = ({ issueId }: Props) => {
     <>
       <AlertDialog.Root>
         <AlertDialog.Trigger>
-          <Button color="red">
+          <Button
+            color="orange"
+            style={{ backgroundColor: "orange", cursor: "pointer" }}
+          >
             <TrashIcon />
             Delete Issue
           </Button>
