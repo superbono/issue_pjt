@@ -34,3 +34,26 @@ export async function PATCH(
 
   return NextResponse.json(updateIssue, { status: 200 });
 }
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const issue = await prisma.issue.findUnique({
+    where: { id: parseInt(params.id) },
+  });
+
+  if (!issue) {
+    return NextResponse.json(
+      { errors: "게시글을 찾을 수 없습니다." },
+      { status: 400 }
+    );
+  }
+
+  await prisma.issue.delete({ where: { id: issue.id } });
+
+  return NextResponse.json(
+    { message: "정상적으로 삭제되었습니다." },
+    { status: 200 }
+  );
+}
