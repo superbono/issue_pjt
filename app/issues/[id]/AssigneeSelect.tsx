@@ -11,18 +11,7 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
   // const [users, setUsers] = useState<User[]>([]);
 
   // useQuery 함수는 isLoading, error, data 반환
-  const {
-    data: users,
-    error,
-    isLoading,
-  } = useQuery<User[]>({
-    queryKey: ["users"],
-    queryFn: () => axios.get("/api/users").then((res) => res.data),
-    // 이전에 가져온 값을 갱신하려면 시간을 설정해야 서버에서 체크 가능
-    staleTime: 60 * 1000,
-    // 갱신된 데이터를 가져오는 것을 시도할 횟수 (실패할 수 있어서 체크)
-    retry: 3,
-  });
+  const { data: users, error, isLoading } = useUsers();
 
   // useEffect(() => {
   //   const fetchUsers = async () => {
@@ -33,6 +22,16 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
   //   fetchUsers();
   // }, []);
 
+  const assignIssue = (userId: string) => {
+    axios
+      .patch("/api/issues/" + issue.id, {
+        assignedToUserId: userId === "unassigned" ? null : userId,
+      })
+      .catch(() => {
+        toast.error("담당자 업데이트에 문제가 발생했습니다.");
+      });
+  };
+
   if (isLoading) return <Skeleton />;
   if (error) return null;
 
@@ -40,15 +39,7 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
     <>
       <Select.Root
         defaultValue={issue.assignedToUserId || "unassigned"}
-        onValueChange={(userId) => {
-          axios
-            .patch("/api/issues/" + issue.id, {
-              assignedToUserId: userId === "unassigned" ? null : userId,
-            })
-            .catch(() => {
-              toast.error("담당자 업데이트에 문제가 발생했습니다.");
-            });
-        }}
+        onValueChange={assignIssue}
       >
         <Select.Trigger placeholder="담당자..." />
         <Select.Content>
@@ -69,5 +60,15 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
     </>
   );
 };
+
+const useUsers = () =>
+  useQuery<User[]>({
+    queryKey: ["users"],
+    queryFn: () => axios.get("/api/users").then((res) => res.data),
+    // 이전에 가져온 값을 갱신하려면 시간을 설정해야 서버에서 체크 가능
+    staleTime: 60 * 1000,
+    // 갱신된 데이터를 가져오는 것을 시도할 횟수 (실패할 수 있어서 체크)
+    retry: 3,
+  });
 
 export default AssigneeSelect;
