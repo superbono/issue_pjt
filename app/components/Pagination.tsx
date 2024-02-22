@@ -29,8 +29,6 @@ const Pagination = ({ itemCount, pageSize, currentPage }: Props) => {
     router.push("?" + params.toString());
   };
 
-  const handleClick = () => {};
-
   return (
     <Flex align="center" gap="2">
       <Text>
