@@ -10,6 +10,9 @@ import EditIssueButton from "./EditIssueButton";
 import IssueDetail from "./IssueDetail";
 import { Metadata } from "next";
 import DeleteIssueButton from "./DeleteIssueButton";
+import { getServerSession } from "next-auth";
+import AuthOptions from "@/app/auth/AuthOptions";
+import AssigneeSelect from "./AssigneeSelect";
 
 export const metadata: Metadata = {
   title: "Issue Detail Page",
@@ -21,6 +24,7 @@ interface Props {
 }
 
 const IssueDetailPage = async ({ params }: Props) => {
+  const session = await getServerSession(AuthOptions);
   const numbericId = parseInt(params.id, 10);
 
   if (isNaN(numbericId) || numbericId.toString() !== params.id) {
@@ -40,12 +44,15 @@ const IssueDetailPage = async ({ params }: Props) => {
         <Box className="lg:col-span-4">
           <IssueDetail issue={issue} />
         </Box>
-        <Box className="col-span-1">
-          <Flex direction="column" gap="2">
-            <EditIssueButton issueId={issue.id} />
-            <DeleteIssueButton issueId={issue.id} />
-          </Flex>
-        </Box>
+        {session && (
+          <Box className="col-span-1">
+            <Flex direction="column" gap="2">
+              <AssigneeSelect issue={issue} />
+              <EditIssueButton issueId={issue.id} />
+              <DeleteIssueButton issueId={issue.id} />
+            </Flex>
+          </Box>
+        )}
       </Grid>
     </div>
   );
