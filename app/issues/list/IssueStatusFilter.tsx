@@ -21,7 +21,6 @@ const IssueStatusFilter = () => {
         defaultValue={searchParams.get("status") || ""}
         onValueChange={(status) => {
           const params = new URLSearchParams();
-          console.log(searchParams.get("orderBy"));
 
           if (params) params.append("status", status);
           if (searchParams.get("orderBy"))

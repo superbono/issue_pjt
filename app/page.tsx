@@ -6,10 +6,19 @@ export const metadata: Metadata = {
   description: "메인 페이지입니다.",
 };
 
-export default function Home() {
+export default function Home({
+  searchParams,
+}: {
+  searchParams: { page: string };
+}) {
+  console.log(searchParams);
   return (
     <div>
-      <Pagination itemCount={100} pageSize={10} currentPage={1} />
+      <Pagination
+        itemCount={100}
+        pageSize={10}
+        currentPage={parseInt(searchParams.page)}
+      />
     </div>
   );
 }
