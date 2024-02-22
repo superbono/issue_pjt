@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Pagination from "./components/Pagination";
 
 export const metadata: Metadata = {
   title: "Main Page",
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <div>
-      <p>Hello World!</p>
+      <Pagination itemCount={100} pageSize={10} currentPage={1} />
     </div>
   );
 }
