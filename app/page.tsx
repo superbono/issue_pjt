@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import LatestIssues from "./LatestIssues";
 
 export const metadata: Metadata = {
   title: "Main Page",
@@ -10,14 +11,5 @@ export default function Home({
 }: {
   searchParams: { page: string };
 }) {
-  return (
-    <div>
-      {/* <Pagination
-        itemCount={100}
-        pageSize={10}
-        currentPage={parseInt(searchParams.page)}
-      /> */}
-      Hello
-    </div>
-  );
+  return <LatestIssues />;
 }
