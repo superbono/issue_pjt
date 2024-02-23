@@ -24,7 +24,7 @@ const IssueChart = ({ open, inProgress, closed }: Props) => {
           <YAxis />
           <Bar
             dataKey="value"
-            barSize={60}
+            barSize={45}
             style={{ fill: "var(--accent-9" }}
           />
         </BarChart>

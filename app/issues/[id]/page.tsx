@@ -4,7 +4,7 @@ import { Pencil2Icon } from "@radix-ui/react-icons";
 import { Card, Heading, Text, Flex, Grid, Button, Box } from "@radix-ui/themes";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import React from "react";
+import React, { cache } from "react";
 import ReactMarkdown from "react-markdown";
 import EditIssueButton from "./EditIssueButton";
 import IssueDetail from "./IssueDetail";
@@ -18,6 +18,10 @@ interface Props {
   params: { id: string };
 }
 
+const fetchUser = cache((issueId: number) =>
+  prisma.issue.findUnique({ where: { id: issueId } })
+);
+
 const IssueDetailPage = async ({ params }: Props) => {
   const session = await getServerSession(AuthOptions);
   const numbericId = parseInt(params.id, 10);
@@ -26,9 +30,7 @@ const IssueDetailPage = async ({ params }: Props) => {
     notFound();
   }
 
-  const issue = await prisma.issue.findUnique({
-    where: { id: parseInt(params.id) },
-  });
+  const issue = await fetchUser(parseInt(params.id));
 
   if (!issue) notFound();
 
@@ -54,15 +56,13 @@ const IssueDetailPage = async ({ params }: Props) => {
 };
 
 export async function generateMetadata({ params }: Props) {
-  const issues = await prisma.issue.findMany({
-    where: { id: parseInt(params.id) },
-  });
+  const issues = await fetchUser(parseInt(params.id));
 
   // console.log(issues[0].title);
 
   return {
-    title: issues[0].title,
-    description: "이슈 상세페이지 - " + issues[0].id + "번째 게시물",
+    title: issues?.title,
+    description: "이슈 상세페이지 - " + issues?.id + "번째 게시물",
   };
 }
 
