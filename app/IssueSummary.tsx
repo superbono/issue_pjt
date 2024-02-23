@@ -10,7 +10,7 @@ interface Props {
 }
 
 const IssueSummary = ({ open, inProgress, closed }: Props) => {
-  const statuses: { label: string; value: number; staus: Status }[] = [
+  const status: { label: string; value: number; status: Status }[] = [
     { label: "Open Issues", value: open, status: "OPEN" },
     { label: "In-Progress Issues", value: inProgress, status: "IN_PROGRESS" },
     { label: "CLosed Issues ", value: closed, status: "CLOSED" },
@@ -18,17 +18,17 @@ const IssueSummary = ({ open, inProgress, closed }: Props) => {
 
   return (
     <Flex gap="4">
-      {statuses.map((status) => (
-        <Card key={status.label}>
+      {status.map((container) => (
+        <Card key={container.label}>
           <Flex direction="column" gap="1">
             <Link
               className="text-sm font-medium"
-              href={`/issues/list?status=${status.value}`}
+              href={`/issues/list?status=${container.value}`}
             >
-              {status.label}
+              {container.label}
             </Link>
             <Text size="5" className="font-bold">
-              {status.value}
+              {container.value}
             </Text>
           </Flex>
         </Card>

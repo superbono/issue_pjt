@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import LatestIssues from "./LatestIssues";
 import IssueSummary from "./IssueSummary";
 import prisma from "@/prisma/client";
+import IssueChart from "./IssueChart";
 
 export const metadata: Metadata = {
   title: "Main Page",
@@ -23,6 +24,7 @@ export default async function Home({
     <>
       <IssueSummary open={open} inProgress={inProgress} closed={closed} />
       <LatestIssues />
+      <IssueChart open={open} inProgress={inProgress} closed={closed} />
     </>
   );
 }
