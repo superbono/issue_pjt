@@ -5,7 +5,7 @@ import React from "react";
 import { IssueStatusBadge } from "./components";
 
 const LatestIssues = async () => {
-  const pageSize = 5;
+  const pageSize = 4;
 
   const issues = await prisma.issue.findMany({
     orderBy: { createdAt: "desc" },
