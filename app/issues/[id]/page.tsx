@@ -14,11 +14,6 @@ import { getServerSession } from "next-auth";
 import AuthOptions from "@/app/auth/AuthOptions";
 import AssigneeSelect from "./AssigneeSelect";
 
-export const metadata: Metadata = {
-  title: "Issue Detail Page",
-  description: "이슈 디테일 페이지입니다",
-};
-
 interface Props {
   params: { id: string };
 }
@@ -57,5 +52,23 @@ const IssueDetailPage = async ({ params }: Props) => {
     </div>
   );
 };
+
+export async function generateMetadata({ params }: Props) {
+  const issues = await prisma.issue.findMany({
+    where: { id: parseInt(params.id) },
+  });
+
+  // console.log(issues[0].title);
+
+  return {
+    title: issues[0].title,
+    description: "이슈 상세페이지 - " + issues[0].id + "번째 게시물",
+  };
+}
+
+// export const metadata: Metadata = {
+//   title: "Issue Detail Page",
+//   description: "이슈 디테일 페이지입니다",
+// };
 
 export default IssueDetailPage;

@@ -7,8 +7,8 @@ import IssueTable, { columnNames, IssueQuery } from "./IssueTable";
 import { Flex } from "@radix-ui/themes";
 
 export const metadata: Metadata = {
-  title: "Issues Page",
-  description: "이슈 페이지입니다",
+  title: "Issues List Page",
+  description: "이슈 전체 목록 페이지입니다",
 };
 
 interface Props {
